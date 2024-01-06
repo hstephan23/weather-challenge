@@ -1,9 +1,10 @@
 window.addEventListener("DOMContentLoaded", () => {
     //variables
+    let counter = 1;
     let cityName = "Nampa";
     let latitude = 43.5737361;
     let longitude = -116.559631;
-    // const location = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
+    let location = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
     const today = new Date();
     let day = today.getDay();
     const month = today.getMonth() + 1;
@@ -13,9 +14,11 @@ window.addEventListener("DOMContentLoaded", () => {
     const currentDate = document.getElementById("date-location");
     const searchBar = document.getElementById("Search");
     const searchCity = document.getElementById("city");
-
+    const searchHistory = localStorage;
     currentDate.textContent = `${cityName} ${combinedDate}`;
-
+    const searchHistoryParent = document.getElementById("major-cities");
+    const search = document.getElementsByClassName("searchBtn");
+    //update the date
     for (let i = 0; i < dates.length; i++) {
         day++; 
         dates[i].textContent = `${month}/${day}/${year}`;
@@ -32,16 +35,50 @@ window.addEventListener("DOMContentLoaded", () => {
             })
             .then (function (data) {
                 clear();
-                console.log(data);
                 latitude = data[0].lat;
                 longitude = data[0].lon;
+                const latAndLon = [latitude, longitude];
+                searchHistory.setItem(cityName, latAndLon);
+                updateSearchHistory(cityName);
                 const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
                 const currentDayUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
                 currentWeather(currentDayUrl);
                 findWeather(weatherUrl);
             });
+        searchCity.value = "";
     })
-    let location = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
+    //accessing the local storage for the search bar history 
+    window.addEventListener("load", function() {
+        console.log(searchHistory);
+        
+    });
+    //updating the search history so that the buttons are associated with the necessary value
+    function updateSearchHistory(city) {
+        if (search.length < 8) {
+            const createBtn = document.createElement("button");
+            const lineBreak = document.createElement("br");
+            createBtn.setAttribute("class", "searchBtn");
+            createBtn.setAttribute("id", `saved-${counter}`);
+            const existingPiece = document.getElementById(`saved-${counter - 1}`);
+            createBtn.textContent = city;
+            createBtn.value = city;
+            counter++;
+            searchHistoryParent.insertBefore(createBtn, existingPiece);
+            searchHistoryParent.insertBefore(lineBreak, existingPiece);
+        } else { 
+            const btn = document.getElementById(`saved-0`);
+            for (let i = (search.length - 1); i > 0; i--) {
+                const previousBtn = search[i-1];
+                const currentBtn = search[i];
+                storedValue = previousBtn.value;
+                currentBtn.value = storedValue;
+                currentBtn.textContent = storedValue;
+            };
+            btn.value = city;
+            btn.textContent = city;
+        } 
+        
+    };
     //reading the data from the the map API
     function chosenLocation() {
         fetch(location)
@@ -311,11 +348,6 @@ window.addEventListener("DOMContentLoaded", () => {
         elementsArray.forEach((element) => {
             element.remove();
         })
-        // console.log(clearClass);
-        // for (let i = 0; i < clearClass.length; i++) {
-        //     clearClass[i].remove();
-        //     console.log(clearClass[i]);
-        // };
     };
     chosenLocation();
 });
