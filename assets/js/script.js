@@ -30,7 +30,6 @@ function findWeather() {
         .then (function (data) {
             console.log(data);
             for (let i = 4; i <data.list.length; i += 8) {
-                console.log(data.list[i].dt_txt);
                 const displayList = document.getElementById(i);
                 const createTemperature = document.createElement("li");
                 const createWind = document.createElement("li");
