@@ -7,7 +7,7 @@ window.addEventListener("DOMContentLoaded", () => {
     let longitude = -116.559631;
     let location = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
     const today = new Date();
-    let day = today.getDay();
+    let day = today.getDate();
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
     const dates = document.getElementsByClassName("date");
@@ -18,9 +18,8 @@ window.addEventListener("DOMContentLoaded", () => {
     const searchHistory = localStorage;
     currentDate.textContent = `${cityName} ${combinedDate}`;
     const searchHistoryParent = document.getElementById("major-cities");
-    let search = document.querySelectorAll(".searchBtn");
-    //searchHistory.clear();
-
+    // searchHistory.clear();
+    console.log(day);
     //update the date
     for (let i = 0; i < dates.length; i++) {
         day++; 
@@ -41,33 +40,22 @@ window.addEventListener("DOMContentLoaded", () => {
                 clear();
                 latitude = data[0].lat;
                 longitude = data[0].lon;
-                const latAndLon = [latitude, longitude];
-                const jsonString = searchHistory.getItem("cities");
                 const trackerString = searchHistory.getItem("history");
-                if (jsonString) {
+                if (trackerString) {
                     const trackerArray = JSON.parse(trackerString);
-                    const cityArray = JSON.parse(jsonString);
-                    const cityObject = {};
-                    cityObject[cityName] = latAndLon;
                     trackerArray.push(cityName);
-                    cityArray.push(cityObject)
                     searchHistory.setItem("history", JSON.stringify(trackerArray));
-                    searchHistory.setItem("cities", JSON.stringify(cityArray));
                 } else {
-                    const newCityArray = [];
-                    const newCityObject = {};
-                    newCityObject[cityName] = latAndLon;
                     cityTracker.push(cityName);
-                    newCityArray.push(newCityObject);
                     searchHistory.setItem("history", JSON.stringify(cityTracker));
-                    searchHistory.setItem("cities", JSON.stringify(newCityArray));
                 };
-                search = updateSearchHistory(cityName);
+                pullFromLocalStorage();
                 const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
                 const currentDayUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
                 currentWeather(currentDayUrl);
                 findWeather(weatherUrl);
-                buttonUpdate(search);
+                buttonUpdate();
+                checkLocalStorage();
             });
         searchCity.value = "";
     });
@@ -77,38 +65,6 @@ window.addEventListener("DOMContentLoaded", () => {
         console.log(searchHistory);
     });
 
-    //updating the search history so that the buttons are associated with the necessary value
-    function updateSearchHistory(city) {
-        console.log(search);
-        if (search.length < 8) {
-            const createBtn = document.createElement("button");
-            const lineBreak = document.createElement("br");
-            createBtn.setAttribute("class", "searchBtn");
-            createBtn.setAttribute("id", `saved-${counter}`);
-            const existingPiece = document.getElementById(`saved-${counter - 1}`);
-            createBtn.textContent = city;
-            createBtn.value = city;
-            counter++;
-            searchHistoryParent.insertBefore(createBtn, existingPiece);
-            searchHistoryParent.insertBefore(lineBreak, existingPiece);
-        } else { 
-            const btn = document.getElementById(`saved-7`);
-            for (let i = (search.length - 1); i >= 0; i--) {
-                const previousBtn = search[i-1];
-                const currentBtn = search[i];
-                if (previousBtn) {
-                    const storedValue = previousBtn.value;
-                    currentBtn.value = storedValue;
-                    currentBtn.textContent = storedValue;
-                }
-            };
-        btn.value = city;
-        btn.textContent = city;
-        } 
-        return document.querySelectorAll(".searchBtn");
-    };
-
-    //reading the data from the the map API
     function chosenLocation() {
         fetch(location)
             .then (function (response) {
@@ -373,17 +329,12 @@ window.addEventListener("DOMContentLoaded", () => {
     };
 
     //function to create update the buttons
-    function buttonUpdate(array) {
-        const searchArray = Array.from(array);
-        for (const button of searchArray) {
-            button.removeEventListener("click", handleButtonClick);
-            button.addEventListener("click", handleButtonClick);
-        }
-    }
-
-    //function to handle the button clicks's activity
-    function handleButtonClick(event) {
-        event.preventDefault();
+    function buttonUpdate() {
+        const array = document.getElementsByClassName("searchBtn");
+        for (let i = 0; i < array.length; i++) {
+            console.log(array[i]);
+            array[i].addEventListener("click", function (event) {
+                event.preventDefault();
                 cityName = event.target.value;
                 currentDate.textContent = `${cityName} ${combinedDate}`;
                 location = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
@@ -416,13 +367,22 @@ window.addEventListener("DOMContentLoaded", () => {
                             searchHistory.setItem("history", JSON.stringify(cityTracker));
                             searchHistory.setItem("cities", JSON.stringify(newCityArray));
                         };
-                        search = updateSearchHistory(cityName);
+                        pullFromLocalStorage();
+                        // search = updateSearchHistory(cityName);
                         const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
                         const currentDayUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
                         currentWeather(currentDayUrl);
                         findWeather(weatherUrl);
-                        buttonUpdate(search);
+                        buttonUpdate(document.querySelectorAll(".searchBtn"));
+                        checkLocalStorage();
                     });
+            });
+    }
+}
+    //function to handle the button clicks's activity
+    function handleButtonClick(event) {
+        event.preventDefault();
+                
     }
 
     //function for clearing the previous weather forecast and current
@@ -433,31 +393,27 @@ window.addEventListener("DOMContentLoaded", () => {
             element.remove();
         })
     };
-    
+
+    //function for clearing the buttons
+    function clearBtns() {
+        const clearing = document.getElementsByClassName("erasable");
+        for (let i = 0; i < clearing.length; i++) {
+            clearing[i].remove();
+            counter = 1;
+        };
+    };
+
     //function for keeping local storage at 8 items
     function checkLocalStorage() {
-        const citiesLocalStorage = searchHistory.getItem("cities");
         const historyStorage = searchHistory.getItem("history");
-        let citiesObject = "";
         let historyArray = "";
-        if (citiesLocalStorage) {
-            citiesObject = JSON.parse(citiesLocalStorage);
+        if (historyStorage) {
             historyArray = JSON.parse(historyStorage);
         } else {
             return;
         };
-        if (citiesObject.length > 8) {
-            const oldestSearch = historyArray.shift();
-            console.log(oldestSearch);
-            for (let i = 0; i < citiesObject.length; i++) {
-                let currentObject = citiesObject[i];
-                if (oldestSearch in currentObject) {
-                    citiesObject.splice(i, 1);
-                    return
-                }
-            }
-            console.log(citiesObject);
-            searchHistory.setItem("cities", JSON.stringify(citiesObject));
+        if (historyArray.length > 8) {
+            historyArray.shift();
             searchHistory.setItem("history", JSON.stringify(historyArray));
         } else {
             return;
@@ -465,11 +421,29 @@ window.addEventListener("DOMContentLoaded", () => {
     };
 
     //function for creating the search history
-    function pullFromLocalStorage(object) {
-        
-    }
-    storedObject = checkLocalStorage();
-    pullFromLocalStorage(storedObject);
-    buttonUpdate(search);
+    function pullFromLocalStorage() {
+        clearBtns();
+        const storedCities = searchHistory.getItem("history");
+        if (storedCities) {
+            citiesArray = JSON.parse(storedCities);
+            console.log(citiesArray);
+            for (let i = (citiesArray.length - 1); i >= 0; i--) {
+                const storedCity = citiesArray[i];
+                const createBtn = document.createElement("button");
+                const lineBreak = document.createElement("br");
+                lineBreak.setAttribute("class", "erasable");
+                createBtn.setAttribute("class", "erasable searchBtn");
+                createBtn.setAttribute("id", `saved-${counter}`);
+                createBtn.textContent = storedCity;
+                createBtn.value = storedCity;
+                searchHistoryParent.append(createBtn);
+                searchHistoryParent.append(lineBreak);
+                counter++;
+            }
+        }
+    };
+    checkLocalStorage();
+    buttonUpdate();
+    pullFromLocalStorage();
     chosenLocation();
 });
