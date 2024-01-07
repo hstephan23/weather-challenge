@@ -63,6 +63,7 @@ window.addEventListener("DOMContentLoaded", () => {
     //accessing the local storage for the search bar history 
     window.addEventListener("load", function() {
         console.log(searchHistory);
+        buttonUpdate();
     });
 
     function chosenLocation() {
@@ -330,7 +331,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //function to create update the buttons
     function buttonUpdate() {
-        const array = document.getElementsByClassName("searchBtn");
+        const array = document.querySelectorAll(".searchBtn");
         for (let i = 0; i < array.length; i++) {
             console.log(array[i]);
             array[i].addEventListener("click", function (event) {
@@ -379,11 +380,6 @@ window.addEventListener("DOMContentLoaded", () => {
             });
     }
 }
-    //function to handle the button clicks's activity
-    function handleButtonClick(event) {
-        event.preventDefault();
-                
-    }
 
     //function for clearing the previous weather forecast and current
     function clear() {
@@ -396,8 +392,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //function for clearing the buttons
     function clearBtns() {
-        const clearing = document.getElementsByClassName("erasable");
+        const clearing = document.querySelectorAll(".erasable");
         for (let i = 0; i < clearing.length; i++) {
+            console.log(clearing[i]);
             clearing[i].remove();
             counter = 1;
         };
