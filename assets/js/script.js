@@ -1,8 +1,9 @@
 window.addEventListener("DOMContentLoaded", () => {
     //variables
+    const searchHistory = localStorage;
     let counter = 1;
     const cityTracker = [];
-    let cityName = "Nampa";
+    let cityName = defaultLoad();
     let latitude = 43.5737361;
     let longitude = -116.559631;
     let location = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
@@ -15,11 +16,9 @@ window.addEventListener("DOMContentLoaded", () => {
     const currentDate = document.getElementById("date-location");
     const searchBar = document.getElementById("Search");
     const searchCity = document.getElementById("city");
-    const searchHistory = localStorage;
     currentDate.textContent = `${cityName} ${combinedDate}`;
     const searchHistoryParent = document.getElementById("major-cities");
     // searchHistory.clear();
-    console.log(day);
     //update the date
     for (let i = 0; i < dates.length; i++) {
         day++; 
@@ -368,14 +367,14 @@ window.addEventListener("DOMContentLoaded", () => {
                             searchHistory.setItem("history", JSON.stringify(cityTracker));
                             searchHistory.setItem("cities", JSON.stringify(newCityArray));
                         };
-                        pullFromLocalStorage();
-                        // search = updateSearchHistory(cityName);
                         const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
                         const currentDayUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
                         currentWeather(currentDayUrl);
                         findWeather(weatherUrl);
-                        buttonUpdate(document.querySelectorAll(".searchBtn"));
+                        console.log(searchHistory);
                         checkLocalStorage();
+                        pullFromLocalStorage();
+                        buttonUpdate(document.querySelectorAll(".searchBtn"));
                     });
             });
     }
@@ -410,15 +409,31 @@ window.addEventListener("DOMContentLoaded", () => {
             return;
         };
         if (historyArray.length > 8) {
+            console.log(historyArray.length);
             historyArray.shift();
             searchHistory.setItem("history", JSON.stringify(historyArray));
         } else {
             return;
-        }
+        };
+        console.log("After check - historyArray length:" + historyArray.length);   
     };
 
+    //function for determining what the load page should default to
+    function defaultLoad() {
+        const historyStorage = searchHistory.getItem("history");
+        let historyArray = "";
+        if (historyStorage) {
+            historyArray = JSON.parse(historyStorage);
+            city = historyArray[7];
+            return city;
+        } else {
+            city = "Nampa";
+            return city;
+        }
+    }
     //function for creating the search history
     function pullFromLocalStorage() {
+        checkLocalStorage();
         clearBtns();
         const storedCities = searchHistory.getItem("history");
         if (storedCities) {
@@ -443,4 +458,5 @@ window.addEventListener("DOMContentLoaded", () => {
     buttonUpdate();
     pullFromLocalStorage();
     chosenLocation();
+    defaultLoad();
 });
