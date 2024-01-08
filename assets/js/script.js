@@ -108,94 +108,94 @@ window.addEventListener("DOMContentLoaded", () => {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/01d@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "02d") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/02d@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "03d") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/03d@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "04d") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/04d@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "09d") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/09d@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "10d") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/10d@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "11d") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/11d@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "13d") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/13d@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "50d") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/50d@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "01n") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/01n@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "02n") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/02n@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "03n") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/03n@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "04n") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/04n@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "09n") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/09n@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "10n") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/10n@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "11n") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/11n@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "13n") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/13n@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else if (icon === "50n") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/50n@2x.png");
                     iconImage.setAttribute("class", "icon");
                     iconImage.setAttribute("class", "weatherList");
-                    displayList.append(iconImage);
+                    currentDate.append(iconImage);
                 } else {
-                    displayList.append("Not able to display");
+                    currentDate.append("Not able to display");
                 }
                 displayList.append(createTemperature);
                 displayList.append(createWind);
