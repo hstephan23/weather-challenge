@@ -63,28 +63,6 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // //accessing the local storage for the search bar history 
-    // window.addEventListener("load", function() {
-    //     buttonUpdate();
-    //     defaultLoad();
-    //     chosenLocation();
-    // });
-
-    function chosenLocation() {
-        fetch(location)
-            .then (function (response) {
-                return response.json();
-            })
-            .then (function (data) {
-                latitude = data[0].lat;
-                longitude = data[0].lon;
-                const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
-                const currentDayUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
-                currentWeather(currentDayUrl);
-                findWeather(weatherUrl);
-            })
-    };
-
     //reading the data coming from the current weather API
     function currentWeather(current) {
         fetch(current) 
@@ -414,6 +392,19 @@ window.addEventListener("DOMContentLoaded", () => {
                 searchHistoryParent.append(lineBreak);
                 counter++;
             }
+            cityName = citiesArray[7];
+            fetch(location)
+                    .then (function (response) {
+                        return response.json();
+                    })
+                    .then (function (data) {
+                        latitude = data[0].lat;
+                        longitude = data[0].lon;
+                        const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
+                        const currentDayUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
+                        currentWeather(currentDayUrl);
+                        findWeather(weatherUrl);
+                    })
         }
     };
     checkLocalStorage();
