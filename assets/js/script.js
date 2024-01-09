@@ -276,6 +276,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //function to create update the buttons
     function buttonUpdate() {
+        defaultLoad();
         const array = document.querySelectorAll(".searchBtn");
         for (let i = 0; i < array.length; i++) {
             array[i].addEventListener("click", function (event) {
@@ -416,5 +417,6 @@ window.addEventListener("DOMContentLoaded", () => {
     checkLocalStorage();
     updateLocation();
     pullFromLocalStorage();
+    defaultLoad();
     buttonUpdate();
 });
