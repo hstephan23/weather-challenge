@@ -63,11 +63,12 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    //accessing the local storage for the search bar history 
-    window.addEventListener("load", function() {
-        console.log(searchHistory);
-        buttonUpdate();
-    });
+    // //accessing the local storage for the search bar history 
+    // window.addEventListener("load", function() {
+    //     buttonUpdate();
+    //     defaultLoad();
+    //     chosenLocation();
+    // });
 
     function chosenLocation() {
         fetch(location)
@@ -75,7 +76,6 @@ window.addEventListener("DOMContentLoaded", () => {
                 return response.json();
             })
             .then (function (data) {
-                console.log(data);
                 latitude = data[0].lat;
                 longitude = data[0].lon;
                 const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
@@ -300,7 +300,6 @@ window.addEventListener("DOMContentLoaded", () => {
     function buttonUpdate() {
         const array = document.querySelectorAll(".searchBtn");
         for (let i = 0; i < array.length; i++) {
-            console.log(array[i]);
             array[i].addEventListener("click", function (event) {
                 event.preventDefault();
                 cityName = event.target.value;
@@ -339,7 +338,6 @@ window.addEventListener("DOMContentLoaded", () => {
                         const currentDayUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
                         currentWeather(currentDayUrl);
                         findWeather(weatherUrl);
-                        console.log(searchHistory);
                         checkLocalStorage();
                         pullFromLocalStorage();
                         buttonUpdate(document.querySelectorAll(".searchBtn"));
@@ -361,7 +359,6 @@ window.addEventListener("DOMContentLoaded", () => {
     function clearBtns() {
         const clearing = document.querySelectorAll(".erasable");
         for (let i = 0; i < clearing.length; i++) {
-            console.log(clearing[i]);
             clearing[i].remove();
             counter = 1;
         };
@@ -377,13 +374,11 @@ window.addEventListener("DOMContentLoaded", () => {
             return;
         };
         if (historyArray.length > 8) {
-            console.log(historyArray.length);
             historyArray.shift();
             searchHistory.setItem("history", JSON.stringify(historyArray));
         } else {
             return;
-        };
-        console.log("After check - historyArray length:" + historyArray.length);   
+        }; 
     };
 
     //function for determining what the load page should default to
@@ -406,7 +401,6 @@ window.addEventListener("DOMContentLoaded", () => {
         const storedCities = searchHistory.getItem("history");
         if (storedCities) {
             citiesArray = JSON.parse(storedCities);
-            console.log(citiesArray);
             for (let i = (citiesArray.length - 1); i >= 0; i--) {
                 const storedCity = citiesArray[i];
                 const createBtn = document.createElement("button");
@@ -425,6 +419,6 @@ window.addEventListener("DOMContentLoaded", () => {
     checkLocalStorage();
     buttonUpdate();
     pullFromLocalStorage();
-    chosenLocation();
     defaultLoad();
+    chosenLocation();
 });
