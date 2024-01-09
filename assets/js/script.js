@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const searchCity = document.getElementById("city");
     currentDate.textContent = `${cityName} ${combinedDate}`;
     const searchHistoryParent = document.getElementById("major-cities");
-    // searchHistory.clear();
+    //searchHistory.clear();
     //update the date
     for (let i = 0; i < dates.length; i++) {
         day++; 

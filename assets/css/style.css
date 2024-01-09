@@ -1,0 +1,31 @@
+body {
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+header {
+    text-align: center;
+    background-image: linear-gradient(to right, gray, navy);
+    color: white;
+    padding: 1rem 0 1rem 0;
+}
+
+#row {
+    display: flex;
+}
+
+#search-box {
+    border-bottom: solid black 2px;
+    margin-bottom: 1rem;
+};
+
+#major-cities {
+    padding: 1rem 0 1rem 0;
+}
+
+#city,
+#Search,
+.searchBtn {
+    width: 100%;
+    padding: 2px 0 2px 0;
+    margin-top: 1rem;
+}
