@@ -29,34 +29,38 @@ window.addEventListener("DOMContentLoaded", () => {
     searchBar.addEventListener("click", function (event) {
         event.preventDefault();
         cityName = searchCity.value;
-        currentDate.textContent = `${cityName} (${combinedDate})`;
-        location = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
-        fetch(location)
-            .then (function (response) {
-                return response.json();
-            })
-            .then (function (data) {
-                clear();
-                latitude = data[0].lat;
-                longitude = data[0].lon;
-                const trackerString = searchHistory.getItem("history");
-                if (trackerString) {
-                    const trackerArray = JSON.parse(trackerString);
-                    trackerArray.push(cityName);
-                    searchHistory.setItem("history", JSON.stringify(trackerArray));
-                } else {
-                    cityTracker.push(cityName);
-                    searchHistory.setItem("history", JSON.stringify(cityTracker));
-                };
-                pullFromLocalStorage();
-                const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
-                const currentDayUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
-                currentWeather(currentDayUrl);
-                findWeather(weatherUrl);
-                buttonUpdate();
-                checkLocalStorage();
-            });
-        searchCity.value = "";
+        if (cityName) {
+            currentDate.textContent = `${cityName} (${combinedDate})`;
+            location = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
+            fetch(location)
+                .then (function (response) {
+                    return response.json();
+                })
+                .then (function (data) {
+                    clear();
+                    latitude = data[0].lat;
+                    longitude = data[0].lon;
+                    const trackerString = searchHistory.getItem("history");
+                    if (trackerString) {
+                        const trackerArray = JSON.parse(trackerString);
+                        trackerArray.push(cityName);
+                        searchHistory.setItem("history", JSON.stringify(trackerArray));
+                    } else {
+                        cityTracker.push(cityName);
+                        searchHistory.setItem("history", JSON.stringify(cityTracker));
+                    };
+                    pullFromLocalStorage();
+                    const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
+                    const currentDayUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
+                    currentWeather(currentDayUrl);
+                    findWeather(weatherUrl);
+                    buttonUpdate();
+                    checkLocalStorage();
+                });
+            searchCity.value = "";
+        } else {
+            alert("Please Enter a City Name");
+        }
     });
 
     //accessing the local storage for the search bar history 
