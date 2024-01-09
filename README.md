@@ -7,6 +7,6 @@ The functionality is simple as it relies on the searching of a city name to pull
 The link for the webpage is: https://hstephan23.github.io/weather-challenge/? 
 
 The webpage looks like this: 
-![Alt text](https://file%252B.vscode-resource.vscode-cdn.net/Users/harrisonstephan/Documents/weather-challenge/Screenshot%25202024-01-09%2520at%25203.56.31%25E2%2580%25AFPM.png?version%253D1704841457694)
+![Alt text](./Screenshot%202024-01-09%20at%203.56.31 PM.png/)
 
 
