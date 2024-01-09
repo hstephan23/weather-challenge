@@ -414,7 +414,7 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     };
     checkLocalStorage();
-    buttonUpdate();
-    pullFromLocalStorage();
     updateLocation();
+    pullFromLocalStorage();
+    buttonUpdate();
 });
