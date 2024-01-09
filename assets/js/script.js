@@ -6,7 +6,7 @@ window.addEventListener("DOMContentLoaded", () => {
     let cityName = defaultLoad();
     let latitude = 43.5737361;
     let longitude = -116.559631;
-    let location = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
+    let location = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
     const today = new Date();
     let day = today.getDate();
     const month = today.getMonth() + 1;
@@ -31,7 +31,7 @@ window.addEventListener("DOMContentLoaded", () => {
         cityName = searchCity.value;
         if (cityName) {
             currentDate.textContent = `${cityName} (${combinedDate})`;
-            location = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
+            location = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
             fetch(location)
                 .then (function (response) {
                     return response.json();
@@ -305,7 +305,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 event.preventDefault();
                 cityName = event.target.value;
                 currentDate.textContent = `${cityName} ${combinedDate}`;
-                location = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
+                location = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
                 fetch(location)
                     .then (function (response) {
                         return response.json();
