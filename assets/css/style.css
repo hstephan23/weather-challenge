@@ -14,12 +14,15 @@ header {
 }
 
 #search-box {
-    border-bottom: solid black 2px;
     margin-bottom: 1rem;
 };
 
 #major-cities {
     padding: 1rem 0 1rem 0;
+}
+
+#border {
+    border-top: solid black 2px;
 }
 
 #city,
@@ -28,4 +31,18 @@ header {
     width: 100%;
     padding: 2px 0 2px 0;
     margin-top: 1rem;
+}
+#current-day {
+    border: solid 1px black;
+}
+
+#forecast {
+    display: flex;
+    gap: 5%;
+}
+
+.forecast-block {
+    background-color: rgb(60, 60, 115);
+    justify-content: space-between;
+    color: white;
 }

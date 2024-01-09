@@ -29,7 +29,7 @@ window.addEventListener("DOMContentLoaded", () => {
     searchBar.addEventListener("click", function (event) {
         event.preventDefault();
         cityName = searchCity.value;
-        currentDate.textContent = `${cityName} ${combinedDate}`;
+        currentDate.textContent = `${cityName} (${combinedDate})`;
         location = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
         fetch(location)
             .then (function (response) {
@@ -100,9 +100,9 @@ window.addEventListener("DOMContentLoaded", () => {
                 createTemperature.setAttribute("class", "weatherList");
                 createWind.setAttribute("class",  "weatherList");
                 createHumidity.setAttribute("class", "weatherList");
-                createTemperature.textContent = `${temperature} ºF`;
-                createWind.textContent = `${wind} MPH`;
-                createHumidity.textContent = `${humidity}%`;
+                createTemperature.textContent = `Temp: ${temperature} ºF`;
+                createWind.textContent = `Wind: ${wind} MPH`;
+                createHumidity.textContent = `Humidity: ${humidity}%`;
                 if (icon === "01d") {
                     iconImage.setAttribute("src", "https://openweathermap.org/img/wn/01d@2x.png");
                     iconImage.setAttribute("class", "icon");
@@ -317,9 +317,9 @@ window.addEventListener("DOMContentLoaded", () => {
                     const temperature = ((data.list[i].main.temp - 273.15) * 1.8 + 32).toFixed(2);
                     const wind = data.list[i].wind.speed;
                     const humidity = data.list[i].main.humidity;
-                    createTemperature.textContent = `${temperature} ºF`;
-                    createWind.textContent = `${wind} MPH`;
-                    createHumidity.textContent = `${humidity}%`;
+                    createTemperature.textContent = `Temp: ${temperature} ºF`;
+                    createWind.textContent = `Wind: ${wind} MPH`;
+                    createHumidity.textContent = `Humidity: ${humidity}%`;
                     displayList.append(createIcon);
                     displayList.append(createTemperature);
                     displayList.append(createWind);
