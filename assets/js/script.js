@@ -276,7 +276,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //function to create update the buttons
     function buttonUpdate() {
-        defaultLoad();
+        cityName = defaultLoad();
         const array = document.querySelectorAll(".searchBtn");
         for (let i = 0; i < array.length; i++) {
             array[i].addEventListener("click", function (event) {
@@ -366,11 +366,11 @@ window.addEventListener("DOMContentLoaded", () => {
         let historyArray = "";
         if (historyStorage) {
             historyArray = JSON.parse(historyStorage);
-            city = historyArray[7];
+            const city = historyArray[7];
             return city;
         } else {
-            city = "Nampa";
-            return city;
+            const defaultCity = "Nampa";
+            return defaultCity;
         }
     }
 
@@ -396,7 +396,7 @@ window.addEventListener("DOMContentLoaded", () => {
         clearBtns();
         const storedCities = searchHistory.getItem("history");
         if (storedCities) {
-            citiesArray = JSON.parse(storedCities);
+            const citiesArray = JSON.parse(storedCities);
             for (let i = (citiesArray.length - 1); i >= 0; i--) {
                 const storedCity = citiesArray[i];
                 const createBtn = document.createElement("button");
@@ -416,7 +416,6 @@ window.addEventListener("DOMContentLoaded", () => {
     };
     checkLocalStorage();
     updateLocation();
-    pullFromLocalStorage();
     defaultLoad();
     buttonUpdate();
 });
