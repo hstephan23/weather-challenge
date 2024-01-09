@@ -9,6 +9,10 @@ header {
     padding: 1rem 0 1rem 0;
 }
 
+li {
+    list-style: none;
+}
+
 #row {
     display: flex;
 }
@@ -34,6 +38,13 @@ header {
 }
 #current-day {
     border: solid 1px black;
+    padding-left: 1%;
+}
+
+#column {
+    margin-right: 10%;
+    width: 100%;
+    margin-left: 2rem;
 }
 
 #forecast {
@@ -45,4 +56,14 @@ header {
     background-color: rgb(60, 60, 115);
     justify-content: space-between;
     color: white;
+    text-align: left;
+    padding-right: 3rem;
+}
+
+.date {
+    padding-left: 3rem;
+}
+
+.top-icon {
+    padding-left: 2.5%;
 }
