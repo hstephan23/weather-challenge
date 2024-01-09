@@ -411,5 +411,4 @@ window.addEventListener("DOMContentLoaded", () => {
     buttonUpdate();
     pullFromLocalStorage();
     defaultLoad();
-    chosenLocation();
 });
