@@ -372,6 +372,23 @@ window.addEventListener("DOMContentLoaded", () => {
             return city;
         }
     }
+
+    //function for running the location 
+    function updateLocation() {
+        fetch(location)
+                    .then (function (response) {
+                        return response.json();
+                    })
+                    .then (function (data) {
+                        latitude = data[0].lat;
+                        longitude = data[0].lon;
+                        const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
+                        const currentDayUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
+                        currentWeather(currentDayUrl);
+                        findWeather(weatherUrl);
+                    })
+    };
+
     //function for creating the search history
     function pullFromLocalStorage() {
         checkLocalStorage();
@@ -393,22 +410,11 @@ window.addEventListener("DOMContentLoaded", () => {
                 counter++;
             }
             cityName = citiesArray[7];
-            fetch(location)
-                    .then (function (response) {
-                        return response.json();
-                    })
-                    .then (function (data) {
-                        latitude = data[0].lat;
-                        longitude = data[0].lon;
-                        const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
-                        const currentDayUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`;
-                        currentWeather(currentDayUrl);
-                        findWeather(weatherUrl);
-                    })
+            return cityName;
         }
     };
     checkLocalStorage();
     buttonUpdate();
     pullFromLocalStorage();
-    defaultLoad();
+    updateLocation();
 });
