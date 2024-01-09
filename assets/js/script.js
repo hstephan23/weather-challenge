@@ -376,6 +376,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //function for running the location 
     function updateLocation() {
+        cityName = defaultLoad();
+        location = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=16a0d06fe2bb273f50b9f98ac2bdb5a3`
         fetch(location)
                     .then (function (response) {
                         return response.json();
